@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind : Deployment
+metadata:
+  name: my-deployment
+spec:
+  replicas: 3
+  selector:   
+    matchLabels:
+      app: my-app
+  template:   
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-container
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: ENV_VAR
+          value: "production"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:     
+            memory: "64Mi"
+            cpu: "250m"
+      nodeSelector:
+        disktype: ssd
+      tolerations:
+      - key: "key1"   
+        operator: "Equal"  
+        value: "value1"  
+        effect: "NoSchedule"
+      - key: "key2"
+        operator: "Exists"
+        effect: "NoSchedule"
+      - key: "key3"                       
+        operator: "Equal"  
+        value: "value3"  
+        effect: "NoExecute"
+        tolerationSeconds: 3600
+      - key: "key4"
+        operator: "Exists"
+        effect: "NoExecute"
+        tolerationSeconds: 3600       
