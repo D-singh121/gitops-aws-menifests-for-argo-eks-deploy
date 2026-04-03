@@ -13,5 +13,5 @@ spec:
     - name: http
       protocol: TCP
       port: 81 # ClusterIP port
-      targetPort: 81 # Container port
+      targetPort: 80 # Container port
       nodePort: 30081 # Exposed port on the kind node (range: 30000-32767)
